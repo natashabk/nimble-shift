@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { Button, Heading, Input, InputGroup, InputLeftElement } from '@chakra-ui/react'
+import { PhoneIcon } from '@chakra-ui/icons'
 
 
 const CreateUser = () => {
@@ -14,53 +16,32 @@ const CreateUser = () => {
   };
 
   return(
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="firstName">First Name:</label>
-        <input
-          type="text"
-          name="firstName"
-          value={firstName}
-          onChange={( e ) => setFirstName( e.target.value )}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="lastName">Last Name:</label>
-        <input
-          type="text"
-          name="lastName"
-          value={lastName}
-          onChange={( e ) => setLastName( e.target.value )}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email:</label>
-        <input
-          type="email"
-          name="email"
-          value={email}
-          onChange={( e ) => setEmail( e.target.value )}
-          required
-        />
-      </div>
-      <div>
-        <label htmlFor="phone">Phone Number:</label>
-        <input
-          type="tel"
-          name="phone"
-          placeholder="123-456-7890"
-          value={phone}
-          onChange={( e ) => {
-            const numericPhone = e.target.value.replace(/\D/g,'')
-            setPhone( numericPhone )
-          }}
-          required
-        />
-      </div>
-      <button type="submit">Create Profile</button>
-    </form>
+    <div style={{width: 500}}>
+      <Heading>New User</Heading>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <Input type="text" value={firstName} placeholder="First Name" onChange={( e ) => setFirstName( e.target.value )} required/>
+          <Input type="text" value={lastName} placeholder="Last Name" onChange={( e ) => setLastName( e.target.value )} required/>
+          <Input type="email" value={email} placeholder="Email Address" onChange={( e ) => setEmail( e.target.value )} required/>
+          <InputGroup>
+            <InputLeftElement pointerEvents='none'>
+              <PhoneIcon color='gray.300' />
+            </InputLeftElement>
+            <Input
+              type='tel' 
+              placeholder='Phone number'
+              value={phone}
+              onChange={( e ) => {
+                const numericPhone = e.target.value.replace(/\D/g,'')
+                setPhone( numericPhone )
+              }}
+              required
+              />
+          </InputGroup>
+        </div>
+        <Button colorScheme='teal' type="submit">Create Profile</Button>
+      </form>
+    </div>
   )
 }
 
