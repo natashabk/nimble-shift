@@ -9,10 +9,33 @@ const CreateUser = () => {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log('Submitted data:', {firstName, lastName, phone, email});
     // Here, you can also send formData to a server or API endpoint
+    const data = {
+      user: {
+        first_name: firstName,
+        last_name: lastName,
+        email: email,
+        phone: phone,
+      }
+    };
+  
+    const response = await fetch('http://localhost:3000/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data)
+    });
+  
+    if (response.ok) {
+      console.log('User created:', await response.json());
+    } else {
+      console.error('Failed to create user:', await response.json());
+    }
+
   };
 
   return(
